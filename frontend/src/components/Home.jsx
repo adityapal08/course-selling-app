@@ -128,6 +128,12 @@ const Home = () => {
             ) : (
               <>
                 <Link
+                  to={"/admin/login"}
+                  className="bg-transparent text-white py-2 px-4 border border-white rounded"
+                >
+                  Admin
+                </Link>
+                <Link
                   to={"/login"}
                   className="bg-transparent text-white py-2 px-4 border border-white rounded"
                 >
