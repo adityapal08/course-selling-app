@@ -9,6 +9,7 @@ import { IoMdSettings } from "react-icons/io";
 import { Link } from "react-router-dom";
 import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
+import { BACKEND_URL } from "../utils/utils";
 
 const Purchases = () => {
   const [purchases, setPurchase] = useState([]);
@@ -39,7 +40,7 @@ const Purchases = () => {
     console.log("Frontend token: ", token);
     try {
       const response = await axios.get(
-        "http://localhost:4001/api/v1/user/logout",
+        `${BACKEND_URL}/user/logout`,
         {
           withCredentials: true,
         },
@@ -70,15 +71,12 @@ const Purchases = () => {
       }
       try {
         //setLoading(true);
-        const response = await axios.get(
-          "http://localhost:4001/api/v1/user/purchases",
-          {
-            withCredentials: true,
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          }
-        );
+        const response = await axios.get(`${BACKEND_URL}/user/purchases`, {
+          withCredentials: true,
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
         setPurchase(response.data.courseData);
       } catch (error) {
         setErrorMessage("Failed to purchase");

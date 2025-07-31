@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import toast from "react-hot-toast";
 import { useNavigate, useParams } from "react-router-dom";
 import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
+import { BACKEND_URL } from "../utils/utils";
 
 const Buy = () => {
   const { courseId } = useParams();
@@ -22,17 +23,16 @@ const Buy = () => {
   const stripe = useStripe();
   const elements = useElements();
   const [cardError, setCardError] = useState("");
+  if (!token) {
+    navigate("/login");
+  }
 
   useEffect(() => {
     const fetchBuyCouseData = async () => {
-      if (!token) {
-        setError("Please login to purchase the courses");
-        return;
-      }
       try {
         //setLoading(true);
         const response = await axios.post(
-          `http://localhost:4001/api/v1/course/buy/${courseId}`,
+          `${BACKEND_URL}/course/buy/${courseId}`,
           {},
           {
             headers: {
@@ -118,7 +118,7 @@ const Buy = () => {
       };
       console.log("payment info: ", paymentInfo);
       await axios
-        .post("http://localhost:4001/api/v1/order", paymentInfo, {
+        .post(`${BACKEND_URL}/order`, paymentInfo, {
           headers: { Authorization: `Bearer ${token}` },
           withCredentials: true,
         })

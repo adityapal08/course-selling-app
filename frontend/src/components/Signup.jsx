@@ -3,6 +3,7 @@ import logo from "../image/logo.webp";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import toast from "react-hot-toast";
+import { BACKEND_URL } from "../utils/utils";
 
 const Signup = () => {
   const [firstname, setFirstName] = useState("");
@@ -20,7 +21,7 @@ const Signup = () => {
 
     try {
       const response = await axios.post(
-        "http://localhost:4001/api/v1/user/signup",
+        `${BACKEND_URL}/user/signup`,
         {
           firstname,
           lastname,

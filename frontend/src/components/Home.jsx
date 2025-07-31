@@ -9,6 +9,7 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import toast from "react-hot-toast";
+import { BACKEND_URL } from "../utils/utils";
 //import cors from "cors";
 
 const Home = () => {
@@ -34,15 +35,12 @@ const Home = () => {
       const token = user?.token;
       console.log("Token: ", token);
 
-      const response = await axios.get(
-        "http://localhost:4001/api/v1/user/logout",
-        {
-          withCredentials: true,
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
+      const response = await axios.get(`${BACKEND_URL}/user/logout`, {
+        withCredentials: true,
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
       console.log("enter handle");
       localStorage.removeItem("user");
       toast.success(response.data.message);
@@ -57,10 +55,9 @@ const Home = () => {
   useEffect(() => {
     const fetchCourses = async () => {
       try {
-        const response = await axios.get(
-          "http://localhost:4001/api/v1/course/courses",
-          { withCredentials: true }
-        );
+        const response = await axios.get(`${BACKEND_URL}/course/courses`, {
+          withCredentials: true,
+        });
         console.log(response.data.courses);
         setCourses(response.data.courses);
       } catch (error) {
