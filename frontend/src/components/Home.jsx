@@ -155,7 +155,7 @@ const Home = () => {
           <br />
 
           <p className="text-gray-500">
-            Sharpen yoyr skills with courses crafted by experts!
+            Sharpen your skills with courses crafted by experts!
           </p>
           <div className="space-x-4 mt-8">
             <Link
